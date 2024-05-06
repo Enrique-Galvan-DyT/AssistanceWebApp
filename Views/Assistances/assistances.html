@@ -1,0 +1,116 @@
+<div class="accordion accordion-flush position-absolute top-50 start-50 translate-middle col-12 col-sm-12 col-md-10 col-lg-10" id="accordionFlushExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed border" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+          Today Attendances <div class="placeholder-glow ms-3">
+            <span class="placeholder badge rounded-pill text-bg-primary user_assistance_list">&nbsp;&nbsp;</span>
+          </div>
+        </button>
+      </h2>
+      <div id="flush-collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body bg-light">
+          <p>Here you can find a list of your recent <code>Attendances</code>.</p>
+            
+          <div class="py-3 d-flex justify-content-between align-items-center row m-0 gap-4">
+              <button class="btn btn-sm btn-outline-info col-12 col-sm-12 col-md-2 col-lg-2" onclick="todayAssistances()"><i class="bi bi-arrow-clockwise me-2"></i>Update list</button>
+              <button class="btn btn-outline-success col-12 col-sm-12 col-md-5 col-lg-3" onclick="addAssistance()"><i class="bi bi-calendar2-check me-2"></i> check <span class="day"></span> Attendance!</button>
+          </div>
+          <div class="table-responsive rounded-1">
+            <table class="table table-hover">
+              <thead class="table-dark">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">User</th>
+                  <th scope="col">Coordinates</th>
+                  <th scope="col">IP</th>
+                  <th scope="col">Creation Date</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!--Dinamic list-->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed border" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+          My Attendances <div class="placeholder-glow ms-3">
+            <span class="placeholder badge rounded-pill text-bg-primary user_assistance_count">&nbsp;&nbsp;</span>
+          </div>
+        </button>
+      </h2>
+      <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body bg-light">
+          <p>Here you can find a list of your <code>Attendances</code>.</p>
+          
+          <div class="py-3 d-flex justify-content-between">
+              <button class="btn btn-sm btn-outline-info col-12 col-sm-12 col-md-2 col-lg-2" onclick="myAssistances()"><i class="bi bi-arrow-clockwise me-2"></i>Update list</button>
+          </div>
+          <div class="table-responsive rounded-1">
+            <table class="table table-hover">
+              <thead class="table-dark">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">User</th>
+                  <th scope="col">Coordinates</th>
+                  <th scope="col">IP</th>
+                  <th scope="col">Creation Date</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!--Dinamic list-->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed border" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+          All Attendances <div class="placeholder-glow ms-3">
+            <span class="placeholder badge rounded-pill text-bg-primary user_assistance_history">&nbsp;&nbsp;</span>
+          </div>
+        </button>
+      </h2>
+      <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body bg-light">
+          <p>Here you can find a list of all existing <code>Attendances</code>.</p>
+            
+          <div class="py-3 d-flex justify-content-between">
+            <button class="btn btn-sm btn-outline-info col-12 col-sm-12 col-md-2 col-lg-2" onclick="allAssistances()"><i class="bi bi-arrow-clockwise me-2"></i>Update list</button>
+          </div>
+          <div class="table-responsive rounded-1">
+            <table class="table table-hover">
+              <thead class="table-dark">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">User</th>
+                  <th scope="col">Coordinates</th>
+                  <th scope="col">IP</th>
+                  <th scope="col">Creation Date</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!--Dinamic list-->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.querySelector('.main').className = "main bg-report";
+    myAssistances()
+    todayAssistances()
+    allAssistances()
+    document.querySelector('.day').innerText = getTodaysName()
+  </script>

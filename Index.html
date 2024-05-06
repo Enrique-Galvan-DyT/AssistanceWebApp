@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assistance | UTTN</title>
+    <!--CSS Styles-->
+    <link rel="stylesheet" href="/AssistanceWebApp/Public/css/init.css">
+    <link rel="stylesheet" href="/AssistanceWebApp/Public/node_modules/leaflet/dist/leaflet.css">
+    
+    <!--JS Scripts-->
+    <script src="/AssistanceWebApp/Public/js/init.js"></script>
+    <script src="/AssistanceWebApp/Public/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/AssistanceWebApp/Public/node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="/AssistanceWebApp/Public/node_modules/leaflet/dist/leaflet.js"></script>
+    <script src="/AssistanceWebApp/Public/js/routes.js"></script>
+    <script src="/AssistanceWebApp/Controllers/UsersController.js"></script>
+    <script src="/AssistanceWebApp/Controllers/AssistancesController.js"></script>
+    <script src="/AssistanceWebApp/Controllers/ScheduleController.js"></script>
+
+</head>
+<body>
+    <div class="menu fixed-top"></div>
+    <div class="toast-container bottom-0 start-50 translate-middle-x pb-4" style="z-index: 10;">
+        <!-- Aquí se agregarán los toasts -->
+    </div>
+    <div class="main bg-login"></div>
+
+    <script>
+        loadPartialView("shared/navbar", document.querySelector(".menu"))
+        loadPartialView("Users/login", document.querySelector(".main"))
+    </script>
+</body>
+</html>

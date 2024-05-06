@@ -1,0 +1,35 @@
+<div id="login" class="card col-10 col-sm-10 col-md-6 col-lg-4 mx-auto d-flex position-absolute start-0 end-0 bottom-0 top-0 align-self-center border-0 shadow">
+    <div>
+      <h1>Iniciar sesión</h1>
+      <img src="/AssistanceWebApp/Public/media/Flower_Forest.webp" class="card-img-top" alt="...">
+    </div>
+    <div class="card-body">
+      <h2 class="card-title text-dark">Portal <code class="fw-bold">Attendance</code></h2>
+      <hr>
+      <form>
+          <div class="alert m-0"></div>
+          <div class="mb-3">
+            <label for="Enrollment" class="form-label">Enrollment:</label>
+            <input type="text" class="form-control" id="Enrollment" name="Enrollment">
+          </div>
+          <div class="mb-3">
+            <label for="Password" class="form-label">Password:</label>
+            <input type="password" class="form-control" id="Password" name="Password">
+          </div>
+          <button type="submit" id="submitLogin" class="btn btn-primary">Submit</button>
+        </form>
+        <script>
+          document.querySelector('.main').className = "main bg-login";
+          verifyUserData();
+          $(document).ready(function() {
+              $('form').submit(function(event) {
+                  event.preventDefault(); // Evitar el envío del formulario tradicional
+                  // Bloquear el formulario
+                  bloquearFormulario();
+                  
+                  login()
+              });
+          });
+      </script>
+    </div>
+  </div>
