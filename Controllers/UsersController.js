@@ -39,8 +39,9 @@ function login() {
         },
         error: function(error) {
             // Manejar errores de AJAX aquí
+            setToast(true, error.responseJSON.Message, "danger")
+            
             deleteCookie("DataUser")
-            console.error("Error en la petición.");
         },
         complete: function() {
           // Desbloquear el formulario cuando la solicitud finaliza (ya sea éxito o error)
@@ -75,7 +76,7 @@ function verifyUserData() {
             error: function(error) {
                 // Manejar errores de AJAX aquí
                 deleteCookie("DataUser")
-                console.error("Error en auto login.");
+                setToast(true, error.responseJSON.Message, "danger")
             }
         });
     }else{

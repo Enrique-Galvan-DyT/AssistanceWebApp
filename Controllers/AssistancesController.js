@@ -38,7 +38,9 @@ function allAssistances() {
                         <td>${att.Coords}</td>
                         <td>${att.IP}</td>
                         <td>${formatoCorregido}</td>
-                        <td>${att.Status == true ? "Active" : "Inactive" }</td>
+                        <td>${att.onTime == true ? "Normal" : "Delay" }</td>
+
+
                         </tr>`
                         document.querySelector('#flush-collapseThree tbody').innerHTML += tr;
                     });
@@ -55,7 +57,8 @@ function allAssistances() {
                 // Manejar errores de AJAX aquí
                 deleteCookie("DataUser")
                 console.log(getCookie("DataUser"))
-                console.error("Error en la petición.");
+                setToast(true, error.responseJSON.Message, "danger")
+                
                 loadPartialView("Users/login", document.querySelector(".main"));
             }
         });
@@ -104,7 +107,8 @@ function myAssistances() {
                             <td>${att.Coords}</td>
                             <td>${att.IP}</td>
                             <td>${formatoCorregido}</td>
-                            <td>${att.Status == true ? "Active" : "Inactive" }</td>
+                            <td>${att.onTime == true ? "Normal" : "Delay" }</td>
+
                             </tr>`
                             document.querySelector('#flush-collapseTwo tbody').innerHTML += tr;
                         });
@@ -118,7 +122,8 @@ function myAssistances() {
                 // Manejar errores de AJAX aquí
                 deleteCookie("DataUser")
                 console.log(getCookie("DataUser"))
-                console.error("Error en la petición.");
+                setToast(true, error.responseJSON.Message, "danger")
+                
                 loadPartialView("Users/login", document.querySelector(".main"));
             }
         });
@@ -167,7 +172,9 @@ function todayAssistances() {
                             <td>${att.Coords}</td>
                             <td>${att.IP}</td>
                             <td>${formatoCorregido}</td>
-                            <td>${att.Status == true ? "Active" : "Inactive" }</td>
+                            <td>${att.onTime == true ? "Normal" : "Delay" }</td>
+
+
                             </tr>`
                             document.querySelector('#flush-collapseOne tbody').innerHTML += tr;
                         });
@@ -181,7 +188,8 @@ function todayAssistances() {
                 // Manejar errores de AJAX aquí
                 deleteCookie("DataUser")
                 console.log(getCookie("DataUser"))
-                console.error("Error en la petición.");
+                setToast(true, error.responseJSON.Message, "danger")
+                            
                 loadPartialView("Users/login", document.querySelector(".main"));
             }
         });
@@ -214,7 +222,8 @@ function addAssistance(is_scheduleTriggered = false) {
                 // Manejar errores de AJAX aquí
                 deleteCookie("DataUser")
                 console.log(getCookie("DataUser"))
-                console.error("Error en la petición.");
+                setToast(true, error.responseJSON.Message, "danger")
+                
                 loadPartialView("Users/login", document.querySelector(".main"));
             }
         });
