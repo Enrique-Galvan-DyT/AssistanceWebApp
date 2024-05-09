@@ -28,6 +28,12 @@ function loadPartialView(viewName, divElement = null, isAppend = false, item = n
     });
 }
 
+function setToast(Success, Message, Message_Classes) {
+    response.Success = Success
+    response.Message = Message
+    response.Message_Classes = Message_Classes
+    toastFill(response)
+}
 function toastFill(response) {
     let toast = `<div class="toast align-items-center text-bg-${response.Message_Classes} border-0" role="alert" aria-live="assertive" aria-atomic="true">
                               <div class="d-flex">
@@ -68,10 +74,7 @@ function closeMenu() {
 
 function tokenError() {
     console.log(getCookie("DataUser"))
-    response.Success = "false"
-    response.Message = "No se encontró un token para inicio de sesión automático."
-    response.Message_Classes = "warning"
-    toastFill(response)
+    setToast(false, "No se encontró un token para inicio de sesión automático.", "warning")
     if (!document.getElementById('login')) {
         loadPartialView("Users/login", document.querySelector(".main"));
     }
@@ -79,15 +82,11 @@ function tokenError() {
 
 function tokenDeleted() {
     console.log(getCookie("DataUser"))
-    response.Success = true
-    response.Message = "Se ha eliminado la sesión exitosamente."
-    response.Message_Classes = "success"
-    toastFill(response)
+    setToast(true, "Se ha eliminado la sesión exitosamente.", "primary")
     if (!document.getElementById('login')) {
         loadPartialView("Users/login", document.querySelector(".main"));
     }
 }
-
 function setCookie(name, value, days = 1) {
     let expires = "";
     if (days) {

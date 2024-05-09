@@ -25,6 +25,10 @@
 
 .menu{
     align-content: center;
+
+    #map{
+        height: 400px;
+    }
 }
 
 .main{
@@ -78,7 +82,7 @@
 .card {
     h1{
         position: absolute;
-        inset: 25%;
+        inset: 20%;
         height: min-content;
         text-align: center;
         margin: 0;

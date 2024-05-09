@@ -24,7 +24,9 @@ function getSchedule() {
             },
             success: function(response) {
                 // Manejar la respuesta del servidor aquí
-                let schedule = response.value
+                
+                //let schedule = response.value.simpleSchedules
+                let schedule = combinarHorariosYClases(response.value.Hours, response.value.simpleSchedules)
                 console.table(schedule);
                 /* 
                 */
@@ -37,11 +39,11 @@ function getSchedule() {
                         schedule.forEach(function(item) {
                             if (!horasUnicas[item.Time]) {
                                 horasUnicas[item.Time] = {
-                                    monday: "",
-                                    tuesday: "",
-                                    wednesday: "",
-                                    thursday: "",
-                                    friday: ""
+                                    Monday: "",
+                                    Tuesday: "",
+                                    Wednesday: "",
+                                    Thursday: "",
+                                    Friday: ""
                                 };
                             }
                             horasUnicas[item.Time][item.Day] = {
@@ -88,6 +90,7 @@ function getSchedule() {
                                             if (info.has_Student_Attendance) {
                                                 cellContent += `<i class="bi bi-check-all text-pink" title="Marcaste asistencia."></i>`
                                             }
+                                            //
                                             cellContent += `</div>`
                                             tr += `<td>${cellContent}</td>`;
                                         } else {
@@ -105,7 +108,7 @@ function getSchedule() {
             },
             error: function(error) {
                 // Manejar errores de AJAX aquí
-                console.error("Error en la petición.");
+                setToast(true, error.responseJSON.Message, "danger")
             }
         });
     }else{
@@ -113,4 +116,33 @@ function getSchedule() {
     }
 }
 
-//Continuar esta sección
+
+function combinarHorariosYClases(horarios, clases) {
+    // Crear un objeto para almacenar el resultado
+    let resultado = [];
+
+    // Iterar sobre los días de la semana
+    const diasSemana = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+    diasSemana.forEach(dia => {
+        // Iterar sobre todas las horas
+        horarios.forEach(horario => {
+            // Verificar si hay una clase programada para esta hora y día
+            let clase = clases.find(c => c.Time === horario.Time && c.Day === dia);
+
+            // Agregar la clase o una hora vacía al resultado
+            resultado.push({
+                Time: horario.Time,
+                TimeName: horario.Name,
+                Day: dia,
+                Module: clase ? clase.Module || "" : "",
+                Teacher: clase ? clase.Teacher || "" : "",
+                has_Teacher_Attendance: clase ? clase.has_Teacher_Attendance || false : false,
+                has_Student_Attendance: clase ? clase.has_Student_Attendance || false : false,
+                Teacher_Attendance_date: clase ? clase.Teacher_Attendance_date || "0001-01-01T00:00:00" : "0001-01-01T00:00:00",
+                Student_Attendance_date: clase ? clase.Student_Attendance_date || "0001-01-01T00:00:00" : "0001-01-01T00:00:00"
+            });
+        });
+    });
+
+    return resultado;
+}
