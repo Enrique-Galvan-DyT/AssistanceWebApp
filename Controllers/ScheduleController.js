@@ -2,7 +2,7 @@ function getSchedule() {
     let token = getCookie("DataUser");
     if (token != null) {
         $.ajax({
-            url: post_search_user_schedule + token,
+            url: post_search_user_schedule_Route + token,
             method: 'POST',
             beforeSend: function() {
                 if (document.querySelector('table tbody')) {

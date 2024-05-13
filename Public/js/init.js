@@ -14,6 +14,10 @@ let response = {
     Message_concat: false 
 }
 
+let latlng = "";
+let polygons = [];
+let temp_dots = [];
+let is_locations_map = false;
 // Función para cargar una vista parcial
 function loadPartialView(viewName, divElement = null, isAppend = false, item = null, functionName = null) {
     $.ajax({

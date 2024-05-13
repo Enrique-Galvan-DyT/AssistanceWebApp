@@ -1,7 +1,7 @@
 const localApi = "https://localhost:44336/api/"
-const remoteApi = "https://localhost:44336/api/"
+const remoteApi = "https://uttnwebhost.bsite.net/api/"
 
-const env = localApi;
+const env = remoteApi;
 
 //Users
 const post_login_Route = env + "Users"
@@ -13,5 +13,6 @@ const post_assistances_Route = env + "Assistances?token="
 const post_user_all_assistances_Route = env +"Assistances/AllUserAssistance?token="
 const post_user_today_assistances_Route = env +"Assistances/AllTodayUserAssistance?token="
 //Schedule
-const post_search_user_schedule = env + "Schedules/GetUserSchedule?token="
-
+const post_search_user_schedule_Route = env + "Schedules/GetUserSchedule?token="
+//Locations
+const post_all_locations_Route = env + "Locations/GetAllLocations?token="

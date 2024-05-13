@@ -17,18 +17,17 @@
     <script src="/AssistanceWebApp/Controllers/UsersController.js"></script>
     <script src="/AssistanceWebApp/Controllers/AssistancesController.js"></script>
     <script src="/AssistanceWebApp/Controllers/ScheduleController.js"></script>
-
 </head>
 <body>
     <div class="menu fixed-top"></div>
     <div class="toast-container bottom-0 start-50 translate-middle-x pb-4" style="z-index: 10;">
         <!-- Aquí se agregarán los toasts -->
     </div>
-    <div class="main bg-login"></div>
+    <div class="main d-flex bg-login"></div>
 
     <script>
         loadPartialView("shared/navbar", document.querySelector(".menu"))
-        loadPartialView("Users/login", document.querySelector(".main"))
+        loadPartialView("Locations/locations", document.querySelector(".main"))
     </script>
 </body>
 </html>

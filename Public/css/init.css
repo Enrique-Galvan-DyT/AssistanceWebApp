@@ -35,8 +35,11 @@
     width: 100dvw;
     height: 100dvh;
     /*
-        background-color: var(--color-60);
+    background-color: var(--color-60);
     */
+    #map-locations{
+        height: 500px;
+    }
     &.bg-login{
         background-image: url('/AssistanceWebApp/Public/media/Sound_Wave.svg');
         background-repeat: no-repeat;
@@ -49,13 +52,16 @@
     &.bg-schedule{
         background-color: indianred;
     }
+    &.bg-location{
+        background-color: #d6d4d1;
+    }
 
     .card:not(#login) { 
         height: clamp(480px, 65vh, 560px);
         .card-body{
             height: inherit;
             .table-responsive{
-                height: 60%;
+                height: 35dvh;
                 overflow-y: scroll;
             }
         }

@@ -1,4 +1,4 @@
-<div id="login" class="card col-10 col-sm-10 col-md-6 col-lg-4 mx-auto d-flex position-absolute start-0 end-0 bottom-0 top-0 align-self-center border-0 shadow">
+<div id="login" class="card align-self-center col-12 col-sm-12 col-md-6 col-lg-6 mx-auto d-flex border-0 shadow">
     <div>
       <h1>Iniciar sesión</h1>
       <img src="/AssistanceWebApp/Public/media/Flower_Forest.webp" class="card-img-top" alt="...">
@@ -17,9 +17,9 @@
             <input type="password" class="form-control" id="Password" name="Password">
           </div>
           <button type="submit" id="submitLogin" class="btn btn-primary">Submit</button>
-        </form>
+      </form>
         <script>
-          document.querySelector('.main').className = "main bg-login";
+          document.querySelector('.main').className = "main d-flex bg-login";
           verifyUserData();
           $(document).ready(function() {
               $('form').submit(function(event) {

@@ -1,0 +1,182 @@
+<script src="/AssistanceWebApp/Controllers/LocationsController.js"></script>
+
+<div class="align-content-center align-self-center border border-3 rounded shadow col-12 col-sm-12 col-md-10 col-lg-10 mx-auto row">
+    <div id="map-locations" class="col-sm-6"></div>
+    <div class="col-12 col-sm-6 bg-light row mx-0">
+        <form class="align-content-center">
+            <div class="row mx-0">
+                <div class="mb-3 col-12">
+                    <label for="Name" class="form-label">Name:</label>
+                    <input type="text" class="form-control form-control-sm" id="Name" name="Name">
+                </div>
+            </div>
+
+            <div class="row mx-0">
+                <div class="mb-3 col-12">
+                    <label for="Coordinates" class="form-label">Coordinates:</label>
+                    <input type="text" class="form-control form-control-sm" id="Coordinates" name="Coordinates">
+                </div>
+
+                <div class="mb-3 col-12">
+                    <label for="Id_Merge" class="form-label">Id Merge:</label>
+                    <select id="Id_Merge" class="form-select" aria-label="Select merge">
+                        <option selected value="0">Open this select menu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                        </select>
+                </div>
+            </div>
+            
+            <div class="row mx-0">
+                <div class="mb-3 col-12 col-sm-6">
+                    <label for="FillColor" class="form-label">Fill Color:</label>
+                    <input type="color" class="form-control form-control-sm" id="FillColor" name="FillColor">
+                </div>
+                <div class="mb-3 col-12 col-sm-6">
+                    <label for="BorderColor" class="form-label">Border Color:</label>
+                    <input type="color" class="form-control form-control-sm" id="BorderColor" name="BorderColor">
+                </div>
+                
+                <div class="form-check form-switch col-12 col-sm-6 align-content-center">
+                    <input class="form-check-input" type="checkbox" role="switch" id="Is_Remote">
+                    <label class="form-check-label" for="Is_Remote">Is Remote</label>
+                </div>
+                
+                <div class="form-check form-switch col-12 col-sm-6 align-content-center">
+                    <input class="form-check-input" type="checkbox" role="switch" id="Status">
+                    <label class="form-check-label" for="Status">Status</label>
+                </div>
+                
+                <div class="form-check form-switch col-12 col-sm-6 align-content-center">
+                    <input class="form-check-input" type="checkbox" role="switch" id="Is_Record_Coordinates">
+                    <label class="form-check-label" for="Is_Record_Coordinates">Record Coordinates</label>
+                </div>
+            </div>
+            
+            <div class="">
+                <div class="row mx-0 justify-content-between">
+                    <button type="button" id="createPolygon" class="btn btn-sm btn-success col-12 col-sm-5 mt-1">Generate records</button>
+                    <button type="button" id="submitPolygon" class="btn btn-sm btn-primary col-12 col-sm-5 mt-1" onclick="postPolygon()">Submit</button>
+                </div>
+                <button type="button" id="searchPolygon" class="btn btn-sm btn-info col-12 mt-1" data-bs-toggle="modal" data-bs-target="#searchPolygons">Search</button>
+                <button type="button" id="deletePolygon" class="btn btn-sm btn-danger col-12 mt-1">Delete polygons</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="searchPolygons" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">Search Polygons</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <table id="locations" class="table table-hover">
+                <thead class="table-dark">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Coords</th>
+                    <th scope="col">Color</th>
+                    <th scope="col">Merge</th>
+                    <th scope="col">Is Remote</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Options</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Done</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<script>
+    is_locations_map = false;
+    document.querySelector('.main').className = "main d-flex bg-location";
+    
+    // Inicializa el mapa Leaflet
+    var map_locations = L.map('map-locations').setView([26.0505942, -98.2801468], 13);
+
+    // Añade el mapa base de OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19
+    }).addTo(map_locations);
+    
+    document.querySelector('#createPolygon').addEventListener('click', function(){
+        if(temp_dots.length > 0){
+            //Definiendo el perímetro de la universidad usando polígonos
+            console.log(temp_dots)
+            createPolygon(temp_dots, document.getElementById('BorderColor').value, document.getElementById('FillColor').value, document.getElementById('Name').value)
+        }
+    })
+
+    function createPolygon(dots, borderColor, fillColor, name) {
+        var custom_polygon = L.polygon([dots], {
+                color: borderColor, 
+                fillColor: fillColor
+        }).addTo(map_locations);
+        polygons.push(custom_polygon);
+        if (name != "") {
+            custom_polygon.bindPopup(name);
+        }
+
+        temp_dots = [];
+    }
+
+    // Función que se ejecuta al hacer click en el mapa
+    function onMapClick(e) {
+        //console.log("Coordenadas del click: " + e.latlng.lat + ", " + e.latlng.lng);
+        if (document.getElementById('Is_Record_Coordinates') && document.getElementById('Is_Record_Coordinates').checked){
+            temp_dots.push([e.latlng.lat, e.latlng.lng]);
+            document.getElementById('Coordinates').value = temp_dots;
+            //console.log(temp_dots);
+            //console.log(temp_dots.join(','));
+        }
+    }
+
+    // Agrega el evento de click al mapa
+    map_locations.on('click', onMapClick);
+
+    
+    // Escucha el evento de clic en el botón para crear un polígono
+    document.getElementById('deletePolygon').addEventListener('click', function () {
+        // Elimina todos los polígonos del mapa
+        for (var i = 0; i < polygons.length; i++) {
+            map_locations.removeLayer(polygons[i]);
+        }
+        // Vacía el array de polígonos
+        polygons = [];
+        document.getElementById('Coordinates').value = ""
+        document.getElementById('Name').value = ""
+    });
+
+    function constructLatLng(coords) {
+        // Divide la cadena en segmentos de coordenadas separadas
+        var segmentosCoordenadas = coords.split(',');
+
+        // Arreglo para almacenar los puntos LatLng
+        var puntosLatLng = [];
+
+        // Itera sobre cada segmento de coordenadas
+        for (var i = 0; i < segmentosCoordenadas.length; i += 2) {
+            // Obtiene la latitud y longitud del segmento actual
+            var latitud = parseFloat(segmentosCoordenadas[i]);
+            var longitud = parseFloat(segmentosCoordenadas[i + 1]);
+            
+            // Crea un objeto LatLng y agrégalo al arreglo
+            puntosLatLng.push(L.latLng(latitud, longitud));
+        }
+        return puntosLatLng;
+    }
+
+    allLocations();
+</script>

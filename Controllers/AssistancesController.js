@@ -201,7 +201,7 @@ function addAssistance(is_scheduleTriggered = false) {
     let token = getCookie("DataUser");
     if (token != null) {
         $.ajax({
-            url: post_new_assistances_Route + token,
+            url: post_new_assistances_Route + token + "&latlng=" + latlng,
             method: 'POST',
             success: function(response) {
                 // Manejar la respuesta del servidor aquí

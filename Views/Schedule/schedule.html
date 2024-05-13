@@ -1,4 +1,4 @@
-<div class="card col-12 col-sm-12 col-md-10 col-lg-10 mx-auto d-flex position-absolute start-0 end-0 bottom-0 top-0 align-self-center border-0 shadow">
+<div class="card align-self-center col-12 col-sm-12 col-md-10 col-lg-10 mx-auto border-0 shadow">
     <div class="card-body">
         <h2 class="card-title text-dark"><i class="bi bi-calendar2-week me-2"></i>Week <span class="week"></span> - <code class="fw-bold">Schedule</code></h2>
         <hr>
@@ -27,7 +27,7 @@
     </div>
   </div>
   <script>
-      document.querySelector('.main').className = "main bg-schedule";
+      document.querySelector('.main').className = "main d-flex bg-schedule";
       document.querySelector('.day').innerText = getTodaysName()
       document.querySelector('.week').innerText = getWeekNumber()
       getSchedule()

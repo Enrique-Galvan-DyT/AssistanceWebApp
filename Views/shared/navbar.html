@@ -60,7 +60,13 @@
                 <li><a class="dropdown-item icon-link icon-link-hover" style="--bs-icon-link-transform: translate3d(0, -.2rem, 0);" href="#"><i class="bi bi-table me-2"></i>Careers</a></li>
                 <li><a class="dropdown-item icon-link icon-link-hover" style="--bs-icon-link-transform: translate3d(0, -.2rem, 0);" href="#"><i class="bi bi-table me-2"></i>Grades</a></li>
                 <li><a class="dropdown-item icon-link icon-link-hover" style="--bs-icon-link-transform: translate3d(0, -.2rem, 0);" href="#"><i class="bi bi-table me-2"></i>Groups</a></li>
-                <li><a class="dropdown-item icon-link icon-link-hover" style="--bs-icon-link-transform: translate3d(0, -.2rem, 0);" href="#"><i class="bi bi-table me-2"></i>Locations</a></li>
+                <li>
+                  <button type="button" class="dropdown-item btn btn-link icon-link icon-link-hover" 
+                          style="--bs-icon-link-transform: translate3d(0, -.2rem, 0);" 
+                          onclick='loadView("Locations/locations")'>
+                    <i class="bi bi-table me-2"></i>Locations
+                  </button>
+                </li>
                 <li><a class="dropdown-item icon-link icon-link-hover" style="--bs-icon-link-transform: translate3d(0, -.2rem, 0);" href="#"><i class="bi bi-table me-2"></i>Roles</a></li>
                 <li><a class="dropdown-item icon-link icon-link-hover" style="--bs-icon-link-transform: translate3d(0, -.2rem, 0);" href="#"><i class="bi bi-table me-2"></i>Times</a></li>
                 <li><a class="dropdown-item icon-link icon-link-hover" style="--bs-icon-link-transform: translate3d(0, -.2rem, 0);" href="#"><i class="bi bi-table me-2"></i>Usuarios</a></li>
@@ -84,38 +90,70 @@
   </nav>
 
 <script>
-    //Inicializa el mapa Leaflet
-    var map = L.map('map').setView([0,0], 13);
-    
-    //Añade el mapa base de OpenStreetMap
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19
-    }).addTo(map);
-    
-        
-    //Función para obtener la ubicación del usuario
-    function getLocation() {
-        if (navigator.geolocation) {
-            // Establecer el intervalo para ejecutar la función cada 5 segundos
-            setInterval(navigator.geolocation.getCurrentPosition(showPosition), 5000); // 5000 milisegundos = 5 segundos
-            //navigator.geolocation.getCurrentPosition(showPosition)
-        }else{
-            response.Success = false
-            response.Message = "Geolocalización no soportada por este navegador."
-            response.Message_Classes = "warning"
-            toastFill(response)
-        }
-    }
+  let is_map = false;
+  // Inicializa el mapa Leaflet
+  
+  var map = L.map('map').setView([0,0], 13);
+  var marker = null; // Variable para almacenar la referencia al marcador
 
-    //Función para mostrar la posición en el mapa
-    function showPosition(position) {
-        var lat = position.coords.latitude;
-        var lng = position.coords.longitude;
-        document.getElementById('lat').innerText = lat
-        document.getElementById('lng').innerText = lng
-        L.marker([lat, lng]).addTo(map)
-        .bindPopup(document.querySelector('.user_enrollment').innerText).openPopup();
+  // Añade el mapa base de OpenStreetMap
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19
+  }).addTo(map);
+
+  // Función para obtener la ubicación del usuario y mostrarla en el mapa
+  function getLocation() {
+      if (navigator.geolocation) {
+          // Establecer el intervalo para ejecutar la función cada 5 segundos
+          setInterval(function() {
+              navigator.geolocation.getCurrentPosition(showPosition);
+          }, 5000); // 5000 milisegundos = 5 segundos
+      } else {
+          response.Success = false
+          response.Message = "Geolocalización no soportada por este navegador."
+          response.Message_Classes = "warning"
+          toastFill(response)
+      }
+  }
+
+  // Función para mostrar la posición en el mapa
+  function showPosition(position) {
+      var lat = position.coords.latitude;
+      var lng = position.coords.longitude;
+      latlng = lat + "," + lng
+      //console.log("Lat: " + lat + " Lng: " + lng)
+      document.getElementById('lat').innerText = lat
+      document.getElementById('lng').innerText = lng
+
+      // Eliminar el marcador existente si hay uno
+      if (marker) {
+          map.removeLayer(marker);
+          if (!is_locations_map) {
+            is_locations_map = !is_locations_map
+            marker = L.marker([lat, lng]).addTo(map_locations).bindPopup(document.querySelector('.user_enrollment').innerText).openPopup();
+          }
+      }
+
+      // Crear y agregar el nuevo marcador
+      marker = L.marker([lat, lng]).addTo(map).bindPopup(document.querySelector('.user_enrollment').innerText).openPopup();
+          
+      if (!is_map) {
+        is_map = !is_map
+        //console.log("Lat: " + lat + " Lng: " + lng)
         map.setView([lat, lng], 17)
-    }
-    window.onload = getLocation()
+      }
+      /*
+      if (map_locations) {
+        //console.log(marker)
+        
+        if (marker) {
+        }
+        //map_locations.setView([lat, lng], 16)
+      }
+      */
+  }
+
+// Llamar a la función getLocation cuando la ventana se cargue
+window.onload = getLocation;
+
 </script>
