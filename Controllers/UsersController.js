@@ -39,8 +39,11 @@ function login() {
         },
         error: function(error) {
             // Manejar errores de AJAX aquí
-            setToast(true, error.responseJSON.Message, "danger")
-            
+            if (error.responseJSON == undefined) {
+                setToast(true, "Silence from server.", "danger")
+            } else {
+                setToast(true, error.responseJSON.Message, "danger")                
+            }            
             deleteCookie("DataUser")
         },
         complete: function() {

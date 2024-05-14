@@ -1,5 +1,6 @@
 const localApi = "https://localhost:44336/api/"
 const remoteApi = "https://uttnwebhost.bsite.net/api/"
+//const remoteApi_alter = "Ruta alterna remota en caso de que el primer servidor falle."
 
 const env = remoteApi;
 
@@ -16,3 +17,5 @@ const post_user_today_assistances_Route = env +"Assistances/AllTodayUserAssistan
 const post_search_user_schedule_Route = env + "Schedules/GetUserSchedule?token="
 //Locations
 const post_all_locations_Route = env + "Locations/GetAllLocations?token="
+
+
