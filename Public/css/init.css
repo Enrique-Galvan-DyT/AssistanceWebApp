@@ -31,6 +31,15 @@
     }
 }
 
+.alert-index{
+    z-index: 2;
+    position: absolute;
+    display: flex;
+    bottom: 0;
+    top: 0;
+    align-self: center;
+}
+
 .main{
     width: 100dvw;
     height: 100dvh;

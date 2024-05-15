@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" href="/AssistanceWebApp/Public/media/libreria.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/AssistanceWebApp/Public/media/libreria.ico" type="image/x-icon">
+
     <title>Assistance | UTTN</title>
     <!--CSS Styles-->
     <link rel="stylesheet" href="/AssistanceWebApp/Public/css/init.css">
@@ -24,7 +28,19 @@
         <!-- Aquí se agregarán los toasts -->
     </div>
     <div class="main d-flex bg-login"></div>
-
+    
+    <div class="alert alert-light alert-dismissible alert-index m-0 shadow rounded-0" role="alert">
+        <div>
+            <h4 class="alert-heading mb-3"><i class="bi bi-info-circle me-2"></i>Dear User,</h4>
+            <p>Welcome to our <code>student attendance platform</code>! To ensure the best possible experience and the correct functionality of our services, we utilize cookies. By logging in and continuing to use our platform, you consent to our use of cookies.</p>
+            <p>Thank you for your understanding and cooperation.</p>
+            <hr>
+            <p>Best regards,</p>
+            <p class="mb-0 text-primary fw-medium">EG.</p>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>    
+    </div>
+    
     <script>
         loadPartialView("shared/navbar", document.querySelector(".menu"))
         loadPartialView("Users/login", document.querySelector(".main"))
