@@ -128,7 +128,7 @@ function getTodaysName() {
     let fechaActual = new Date();
 
     // Array con los nombres de los días de la semana
-    let nombresDias = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+    let nombresDias = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
     // Obtener el número del día de la semana (0 para Domingo, 1 para Lunes, etc.)
     let numeroDia = fechaActual.getDay();
@@ -150,4 +150,25 @@ function getWeekNumber() {
     let milisegundosTranscurridos = fechaAux.getTime() - inicioAnio.getTime();
     // Calculamos el número de semanas redondeando hacia abajo
     return (1 + Math.floor(milisegundosTranscurridos / 86400000 / 7));
+}
+function saveHTML2IMG(idName) {
+    var element = document.getElementById(idName);
+    if (!element) {
+        alert('Element with ID ' + idName + ' not found!');
+        return;
+    }
+    html2canvas(element).then(canvas => {
+        // Convert canvas to a data URL
+        var dataURL = canvas.toDataURL('image/png');
+        
+        // Create a temporary link element
+        var link = document.createElement('a');
+        link.href = dataURL;
+        link.download = idName + '_capture.png';
+        
+        // Programmatically click the link to trigger the download
+        link.click();
+    }).catch(err => {
+        console.error('Error capturing the element:', err);
+    });
 }

@@ -1,14 +1,20 @@
 <div class="card align-self-center col-12 col-sm-12 col-md-10 col-lg-10 mx-auto border-0 shadow">
     <div class="card-body">
-        <h2 class="card-title text-dark"><i class="bi bi-calendar2-week me-2"></i>Week <span class="week"></span> - <code class="fw-bold">Schedule</code></h2>
+        <h2 class="card-title text-dark d-flex justify-content-between">
+            <div>
+                <i class="bi bi-calendar2-week me-2"></i>Week <span class="week"></span> - <code class="fw-bold">Schedule</code>
+            </div>
+
+            <button class="btn btn-sm btn-link" title="Save this" onclick="saveHTML2IMG('Schedule')"><i class="bi bi-cloud-download me-2"></i></button></h2>
         <hr>
         <p class="m-0 col-12 col-sm-12 col-md-6 col-lg-6">This is your <code class="fw-bold">Schedule</code> for the week.</p>
         <div class="py-3 d-flex justify-content-between align-items-center row m-0 gap-4">
               <button class="btn btn-sm btn-outline-info col-12 col-sm-12 col-md-2 col-lg-3" onclick="getSchedule()"><i class="bi bi-arrow-clockwise me-2"></i>Update schedule</button>
-              <button class="btn btn-sm btn-outline-success col-12 col-sm-12 col-md-4 col-lg-3" onclick="addAssistance(true)"><i class="bi bi-calendar2-check me-2"></i> check <span class="day"></span> Attendance!</button>
+              <button class="btn btn-sm btn-outline-success col-12 col-sm-12 col-md-4 col-lg-3" onclick="addAssistance(true)"><i class="bi bi-calendar2-check me-2"></i>Check <span class="day"></span> Attendance!</button>
+              
         </div>
         <div class="table-responsive rounded-1">
-          <table class="table table-hover">
+          <table id="Schedule" class="table table-hover">
               <thead class="table-dark">
                   <tr>
                       <th class="col-2" scope="col">Hour</th>
