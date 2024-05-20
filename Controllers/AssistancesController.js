@@ -38,9 +38,11 @@ function allAssistances() {
                         <td>${att.Coords}</td>
                         <td>${att.IP}</td>
                         <td>${formatoCorregido}</td>
+                        <td class="text-center">
+                        ${att.Status == true ? "Approved" : "Waiting" }</br>
+                        <button class="btn btn-sm btn-warning d-flex mx-auto mt-4" onclick="checkAssistance(${att.Id_Assistance})"><i class="bi bi-check2-square"></i></button>
+                        </td>
                         <td>${att.onTime == true ? "Normal" : "Delay" }</td>
-
-
                         </tr>`
                         document.querySelector('#flush-collapseThree tbody').innerHTML += tr;
                     });
@@ -107,6 +109,7 @@ function myAssistances() {
                             <td>${att.Coords}</td>
                             <td>${att.IP}</td>
                             <td>${formatoCorregido}</td>
+                            <td>${att.Status == true ? "Approved" : "Waiting" }</td>
                             <td>${att.onTime == true ? "Normal" : "Delay" }</td>
 
                             </tr>`
@@ -200,12 +203,18 @@ function todayAssistances() {
 function addAssistance(is_scheduleTriggered = false) {
     let token = getCookie("DataUser");
     if (token != null) {
+        $('button.btn-outline-success').prop('disabled', true);
+    
         $.ajax({
             url: post_new_assistances_Route + token + "&latlng=" + latlng,
             method: 'POST',
             success: function(response) {
                 // Manejar la respuesta del servidor aquí
                 console.log(response);
+                // Habilitar el botón nuevamente después de 5 segundos (5000 milisegundos)
+                setTimeout(function() {
+                    $('button.btn-outline-success').prop('disabled', false);
+                }, 5000);
                 if (response.Success) {
                     
                     if (is_scheduleTriggered) {
@@ -215,6 +224,78 @@ function addAssistance(is_scheduleTriggered = false) {
                         myAssistances()
                         todayAssistances()
                     }
+                }
+                toastFill(response)
+            },
+            error: function(error) {
+                // Manejar errores de AJAX aquí
+                deleteCookie("DataUser")
+                console.log(getCookie("DataUser"))
+                setToast(true, error.responseJSON.Message, "danger")
+                
+                loadPartialView("Users/login", document.querySelector(".main"));
+            }
+        });
+    }
+    else{
+        tokenError()
+    }
+}
+function validateAssistance() {
+    let token = getCookie("DataUser");
+    if (token != null) {
+        $('button.btn-outline-warning').prop('disabled', true);
+    
+        $.ajax({
+            url: post_user_validate_assistances_Route + token + "&latlng=" + latlng,
+            method: 'POST',
+            success: function(response) {
+                // Manejar la respuesta del servidor aquí
+                console.log(response);
+                // Habilitar el botón nuevamente después de 5 segundos (5000 milisegundos)
+                setTimeout(function() {
+                    $('button.btn-outline-warning').prop('disabled', false);
+                }, 5000);
+                if (response.Success) {
+                    allAssistances()
+                    myAssistances()
+                    todayAssistances()
+                }
+                toastFill(response)
+            },
+            error: function(error) {
+                // Manejar errores de AJAX aquí
+                deleteCookie("DataUser")
+                console.log(getCookie("DataUser"))
+                setToast(true, error.responseJSON.Message, "danger")
+                
+                loadPartialView("Users/login", document.querySelector(".main"));
+            }
+        });
+    }
+    else{
+        tokenError()
+    }
+}
+function checkAssistance(Id_Assistance) {
+    let token = getCookie("DataUser");
+    if (token != null) {
+        $('button.btn-warning').prop('disabled', true);
+    
+        $.ajax({
+            url: post_user_check_assistances_Route + token + "&Id_Assistance=" + Id_Assistance,
+            method: 'POST',
+            success: function(response) {
+                // Manejar la respuesta del servidor aquí
+                console.log(response);
+                // Habilitar el botón nuevamente después de 5 segundos (5000 milisegundos)
+                setTimeout(function() {
+                    $('button.btn-warning').prop('disabled', false);
+                }, 5000);
+                if (response.Success) {
+                    allAssistances()
+                    myAssistances()
+                    todayAssistances()
                 }
                 toastFill(response)
             },

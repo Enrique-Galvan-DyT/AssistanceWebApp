@@ -48,6 +48,8 @@ function getSchedule() {
                             }
                             horasUnicas[item.Time][item.Day] = {
                                 Module: item.Module || "",
+                                Grado: item.Grado || false,
+                                Grupo: item.Grupo || false,
                                 has_Teacher_Attendance: item.has_Teacher_Attendance || false,
                                 has_Student_Attendance: item.has_Student_Attendance || false,
                                 Teacher: item.Teacher || ""
@@ -82,6 +84,7 @@ function getSchedule() {
                                         if (materia.Module != "") {
                                             let info = horasUnicas[horaActual][dia];
                                             let cellContent = `<span class="fw-medium">${materia.Module}</span><br>`;
+                                            cellContent += `<span class="badge text-bg-primary">${materia.Grado + " " + materia.Grupo}</span><br>`;
                                             cellContent += `<small class="text-muted"><span class="text-primary">Teacher</span>: <span class="fw-light">${info.Teacher}</span></small><br>`;
                                             cellContent += `<div class="d-flex gap-2">`
                                             if (info.has_Teacher_Attendance) {
@@ -135,6 +138,8 @@ function combinarHorariosYClases(horarios, clases) {
                 TimeName: horario.Name,
                 Day: dia,
                 Module: clase ? clase.Module || "" : "",
+                Grupo: clase ? clase.ModuleGroup || "" : "",
+                Grado: clase ? clase.ModuleGrade || "" : "",
                 Teacher: clase ? clase.Teacher || "" : "",
                 has_Teacher_Attendance: clase ? clase.has_Teacher_Attendance || false : false,
                 has_Student_Attendance: clase ? clase.has_Student_Attendance || false : false,
