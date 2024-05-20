@@ -40,7 +40,7 @@ function allAssistances() {
                         <td>${formatoCorregido}</td>
                         <td class="text-center">
                         ${att.Status == true ? "Approved" : "Waiting" }</br>
-                        <button class="btn btn-sm btn-warning d-flex mx-auto mt-4" onclick="checkAssistance(${att.Id_Assistance})"><i class="bi bi-check2-square"></i></button>
+                        <button title="Invert Status" class="btn btn-sm btn-warning d-flex mx-auto mt-4" onclick="checkAssistance(${att.Id_Assistance})"><i class="bi bi-arrow-repeat"></i></button>
                         </td>
                         <td>${att.onTime == true ? "Normal" : "Delay" }</td>
                         </tr>`
